@@ -361,86 +361,88 @@ const USPS_Api_Priority_Mail_Slip = ({ csvData }) => {
                           marginLeft: 34,
                         }}
                       >
-                        Mailed from {data[6]}
+                        Mailed from {data?.[6]}
                       </Text>
                     </View>
                   </View>
                 </View>
+
                 <View
                   style={{
-                    borderTopWidth: 3,
-                    borderTopColor: "black",
-                    borderBottomWidth: 3,
-                    borderBottomColor: "black",
+                    width: "100%",
+                    height: 1.2,
+                    backgroundColor: "#000",
+                  }}
+                ></View>
+                <View
+                  style={{
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "row",
                     alignItems: "center",
-                    paddingVertical: 2,
+                    justifyContent: "center",
+                    paddingTop: 3,
+                    paddingBottom: 2,
+                    textAlign: "center",
                   }}
                 >
                   <Text
                     style={{
-                      fontFamily: "Helvetica-Bold",
-                      fontSize: "13.6px",
-                      textAlign: "center",
+                      fontSize: 18,
+                      fontWeight: 700,
+                      fontFamily: "Poppins",
                     }}
                   >
-                    PRIORITY MAIL 2-DAY{`\u2122`}
+                    PRIORITY MAIL®
                   </Text>
                 </View>
+                <View
+                  style={{
+                    width: "100%",
+                    height: 1.1,
+                    backgroundColor: "#000",
+                  }}
+                ></View>
 
                 <View
                   style={{
                     display: "flex",
                     flexDirection: "row",
+                    alignItems: "flex-start",
                     justifyContent: "space-between",
-                    paddingHorizontal: 8,
-                    paddingTop: 3,
+                    padding: 2,
+                    paddingRight: 8,
+                    paddingLeft: 15,
+                    width: "100%",
                   }}
                 >
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: "6px",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {data[0]}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: "6px",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {data[2]}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: "6px",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {`${data[4]} ${data[5]} ${data[6]}`}
-                    </Text>
+                  <View
+                    style={{
+                      fontSize: "8px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    <Text>{data[0]}</Text>
+                    <Text>{data[2]}</Text>
+                    <Text>{`${data[4]} ${data[5]} ${data[6]}`}</Text>
                   </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: "6px",
-                        fontFamily: "Helvetica-Bold",
-                      }}
-                    >
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <Text style={{ fontSize: "6.5px" }}>
                       Created {createdDate}
                     </Text>
                     <Text
                       style={{
-                        fontSize: "12px",
-                        fontFamily: "Helvetica-Bold",
-                        marginTop: 3,
+                        fontSize: "11.5px",
+                        marginTop: 4,
+                        marginRight: 2,
                       }}
                     >
-                      {/* {randomNumbers[index] || 0} */}
+                      RDC 01
                     </Text>
                   </View>
                 </View>
@@ -448,35 +450,32 @@ const USPS_Api_Priority_Mail_Slip = ({ csvData }) => {
                 <View
                   style={{
                     position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
+                    bottom: 4,
+                    width: "100%",
                   }}
                 >
                   <View
                     style={{
-                      display: "flex",
+                      fontSize: "10px",
+                      color: "black",
+                      flex: 1,
+                      paddingHorizontal: 10,
                       flexDirection: "row",
-                      alignItems: "center",
-                      gap: 20,
-                      paddingLeft: 5,
+                      display: "flex",
+                      gap: 12,
                       marginBottom: 8,
                     }}
                   >
-                    <View style={{ width: 45, height: 45 }}>
-                      <Image src={pfd147Barcode} style={{ height: "100%" }} />
+                    <View style={{ width: 33, height: 33, marginTop: 2 }}>
+                      <Image
+                        src={qrcode}
+                        style={{ height: "100%", width: "100%" }}
+                      />
                     </View>
 
-                    <View
-                      style={{
-                        fontSize: "8.5px",
-                        fontFamily: "Helvetica-Bold",
-                        lineHeight: 1.2,
-                        textTransform: "uppercase",
-                      }}
-                    >
+                    <View style={{ textTransform: "uppercase" }}>
                       <Text>{data[8]}</Text>
-                      {data[9] && <Text>{data[9]}</Text>}
+                      <Text>{data[9]}</Text>
                       <Text>{data[10]}</Text>
                       {data[11] && <Text>{data[11]}</Text>}
                       <Text>{`${data[12]} ${data[13]} ${zipArea}`}</Text>
@@ -548,7 +547,11 @@ const USPS_Api_Priority_Mail_Slip = ({ csvData }) => {
                     }}
                   >
                     <Text style={{ fontSize: "8px" }}>
-                      {data?.[21]?.length > 0 ? data[21] : ""}
+                      {data?.[21]?.length > 0
+                        ? data[21]
+                        : data?.[20]?.length > 0
+                        ? data[20]
+                        : ""}
                     </Text>
 
                     <View
