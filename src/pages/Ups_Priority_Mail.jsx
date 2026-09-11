@@ -73,7 +73,7 @@ const USPS_Priority_Mail = ({ csvData }) => {
         bcid: "code128",
         text: barcodeValueFour,
         scale: 1,
-        height: 10,
+        height: 11,
         includetext: false,
         textxalign: "center",
         parsefnc: true,
@@ -317,7 +317,7 @@ const USPS_Priority_Mail = ({ csvData }) => {
                     <View
                       style={{
                         position: "absolute",
-                        bottom: 4,
+                        bottom: 0,
                         width: "100%",
                       }}
                     >
@@ -337,13 +337,19 @@ const USPS_Priority_Mail = ({ csvData }) => {
                           style={{
                             flexDirection: "row",
                             justifyContent: "center",
-                            height: 66,
-                            width: 250,
+                            height: 58,
+                            width: 248,
                             marginHorizontal: "auto",
-                            paddingVertical: 8,
+                            paddingTop: 2,
+                            paddingBottom: 0,
                           }}
                         >
-                          {barcodeTwo && <Image src={barcodeTwo} />}
+                          {barcodeTwo && (
+                            <Image
+                              src={barcodeTwo}
+                              style={{ height: "100%", width: "100%" }}
+                            />
+                          )}
                         </View>
                         <Text
                           style={{
@@ -363,18 +369,24 @@ const USPS_Priority_Mail = ({ csvData }) => {
                           backgroundColor: "#000",
                         }}
                       ></View>
-                      {data[20] && data[20] !== "" && (
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            marginTop: 6,
-                            marginBottom: 4,
-                            paddingLeft: 1,
-                          }}
-                        >
-                          DESC: {data[20]}
-                        </Text>
-                      )}
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          marginTop: 20,
+                          marginBottom: 20,
+                          paddingLeft: 1,
+                          opacity:
+                            data[20] && String(data[20]).trim().length > 0
+                              ? 1
+                              : 0,
+                        }}
+                      >
+                        {data[20] && String(data[20]).trim().length > 0
+                          ? String(data[20]).trim().toUpperCase().startsWith("DESC:")
+                            ? String(data[20]).trim()
+                            : `DESC: ${String(data[20]).trim()}`
+                          : " "}
+                      </Text>
                     </View>
                   </View>
                 </View>
